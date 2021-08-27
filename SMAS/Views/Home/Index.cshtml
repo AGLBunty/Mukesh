@@ -1,0 +1,106 @@
+﻿@model SMAS.Models.UserLogin.Userlogin
+@{
+	
+	
+	ViewBag.Title = "";
+}
+
+
+<link rel="stylesheet" href=@Url.Content("~/css/radio-button.css") />
+
+
+@*@using (Html.BeginForm())
+{*@
+	@*@Html.AntiForgeryToken()*@
+
+<div class="mainContainer">
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+	<div class="loginBg">
+		<div class="loginMain">
+			<div class="marutiLogo"><img src=@Url.Content("~/images/maruti-logo.png")></div>
+			<div class="loginIcon"><img src=@Url.Content("~/images/login-img.png")></div>
+            <div><input type="hidden" id="domainname" name="domainname" value="@SMAS.Models.clsBLLHttpUtility.GetDomin()" />
+                <input type="hidden" id="hidotp" name="hidotp" value="" />
+            </div>
+
+				
+
+
+           
+
+            <div class="loginFormSec">
+                <div class="radioButtons">
+                    <label class="radioButtonBx">
+                        MSIL ID
+                        <input type="radio" checked="checked" name="radio" data-id="msildId">
+                        <span class="radioMark"></span>
+                    </label>
+                    <label class="radioButtonBx">
+                        MSPIN
+                        <input type="radio" name="radio" data-id="mspin">
+                        <span class="radioMark"></span>
+                    </label>
+                </div>
+                <div class="formBox">
+                    <div class="commonDiv active" id="msildId">
+                       @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "loginField", @placeholder = "Username" } })
+                    
+                        
+
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "passField", @placeholder = "Password" } })
+                        <div>
+                            <input class="loginButt" id="btnmsillogin" type="button" name="" value="Login">
+                        </div>
+                    </div>
+                    <div class="commonDiv" id="mspin">
+                        <div class="mspinDiv">
+                            <input  type="text" class="mspinField" id="mspin" name="mspin" placeholder="MSPIN">
+                            <span class="sendOtp" id="sendotp">Send OTP</span>
+
+                        </div>
+                        <input type="text" class="otpField" id="otp"  name="otp" placeholder="OTP">
+
+                        <span class="text-danger" id="otpmsg" style="font-size:12px;display:none;">If OTP is not received within 1 min, Please check and update Mobile Number in DMS.</span>
+                        <div>
+                            <input class="loginButt" id="btnmspinlogin" type="button"  value="Login">
+                        </div>
+                    </div>
+                    
+                </div>
+                <span class="text-danger" id="errmsg"></span>
+                <span class="text-success" id="susmsg"></span>
+            </div>
+          
+			@*<div class="loginFormSec">
+
+				@Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "loginField", @placeholder = "Username" } })
+				@Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+
+
+				
+
+			</div>
+			<div class="loginFormSec">
+				@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "passField", @placeholder = "Password" } })
+				@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+			</div>
+			<div>
+				<input class="loginButt" type="submit" name="" value="Login">
+			</div>*@
+
+		</div>
+	</div>
+</div>
+
+
+//}
+
+
+@section Scripts{
+	<script src="~/Scripts/jquery.validate.min.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/JS/Users/login.js"></script>
+   
+}

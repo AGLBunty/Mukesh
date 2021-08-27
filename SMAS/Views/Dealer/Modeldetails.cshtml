@@ -1,0 +1,335 @@
+﻿
+@model PagedList.IPagedList<SMAS.Models.List.SubscribeModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />  
+
+@{
+    ViewBag.Title = "Modeldetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="rightPanel">
+
+    <div class="rightSecMain">
+        <!-- right top header start -->
+        @if (Request.IsAuthenticated)
+        {
+
+            <div class="rightHeadSec">
+                <div class="pageTitle">Home / @ViewBag.language / <a href="#">@ViewBag.Modelname</a></div>
+                <div class="pageTitleRight">
+                    @*<a href="#" id="profileLink">*@
+                        <label>@HttpContext.Current.User.Identity.Name</label>
+                        <div><input type="hidden" id="domainname" name="domainname" value="@SMAS.Models.clsBLLHttpUtility.GetDomin()" /></div>
+                    @*</a>
+                    <div id="profileLinkDrop" class="profileLinks">
+                        <ul>
+                            <li>
+                                @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                                }
+                            </li>
+                        </ul>
+                    </div>*@
+                </div>
+            </div>
+
+        }
+
+                               
+                            <!-- right top header end -->
+
+
+
+            @using (Ajax.BeginForm("Modeldetails", "dealer", new AjaxOptions { HttpMethod = "POST", OnSuccess = "successOfAddition", OnFailure = "failureOfAddition" }, new { id = "addStoreRegisterForm" }))
+            {
+
+                <div class="row no-gutters align-items-center bg-white py-4 page-header">
+                    <div class="col-auto">
+                        <div class="carManualTop">
+                            <a class="backBtn" href="@Url.Action("ModelList", "dealer", new { id = ViewBag.languageid })"><img src=@Url.Content("~/images/back-btn.png")></a>
+                            <h2>@ViewBag.Modelname</h2>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex justify-content-center">
+                            <ul class="nav nav-tabs m-0">
+
+                                <li class="nav-item">
+                                    @if (ViewBag.Filter == 1)
+                                    {
+
+                                        @Html.ActionLink("PDF", "Modeldetails", new { Filter_Value = ViewBag.Filter, langugeid = ViewBag.languageid, status = ViewBag.status }, new { @class = "nav-link active", @style = "width:100px;" })
+                                    }
+                                    else
+                                    {
+
+                                        @Html.ActionLink("PDF", "Modeldetails", new { Filter_Value = 1, langugeid = ViewBag.languageid, status = ViewBag.status }, new { @class = "nav-link", @style = "width:100px;" })
+                                    }
+
+                                </li>
+                                <li class="nav-item">
+                                    @if (ViewBag.Filter == 2)
+                                    {
+
+                                        @Html.ActionLink("DTSP", "Modeldetails", new { Filter_Value = ViewBag.Filter, langugeid = ViewBag.languageid, status = ViewBag.status }, new { @class = "nav-link active", @style = "width:100px;" })
+                                    }
+                                    else
+                                    {
+
+                                        @Html.ActionLink("DTSP", "Modeldetails", new { Filter_Value = 2, langugeid = ViewBag.languageid, status = ViewBag.status }, new { @class = "nav-link ", @style = "width:100px;" })
+                                    }
+
+                                </li>
+                                @*<li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#pdf">PDF</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#dtsp">DTSP</a>
+                                    </li>*@
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-auto pr-2 ml-2">
+                        <div class="carSelectBox">
+                            @Html.DropDownList("langugeid", (IEnumerable<SelectListItem>)ViewBag.Languagelist, new
+                       {
+                           @class = "form-control",
+                           onchange = "$(this.form).submit();",
+                           //onchange = "AdditionalsChanged(this)",
+                           //style = "width: 250px"
+                       })
+                        </div>
+                    </div>
+                    <div class="col-md-auto pl-2">
+                        <div class="carManaualSearch">
+                            @*<input type="text" name="search" placeholder="Search">*@
+
+                            @Html.TextBox("Search_Data", ViewBag.Search as string, new { @placeholder = "Search" })
+                            <input type="hidden" name="Filter_Value" id="Filter_Value" value="@ViewBag.Filter" />
+                            <input type="hidden"  name="status" id="status" value="@ViewBag.status" />
+                        </div>
+                    </div>
+                    @*<div class="col-auto ml-auto">
+                        <a href="javascript:void(0)" class="btn btn-primary btn-upload actionUpLink">Upload</a>
+                    </div>*@
+                </div>
+                }
+          
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="pdf">
+                                    <div class="row mt-5 no-gutters gutters-26">
+                                        @if (Model != null&&Model.Count()>0)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                string filetitle = item.TITLE.Length > 14 ? item.TITLE.Substring(0, 13) + "..." : item.TITLE;
+                                            <div class="col-md-3 mb-4" id="div_@item.ID">
+                                                <div class="card card-manual border-0 h-100">
+                                                    <div class="card-body text-center">
+                                                        <div class="card-language-img mb-4">
+                                                            @if (item.SID == 1)
+                                                            {
+                                                                if (!item.ISSUBSCRIBED)
+                                                                {
+                                                                        <a id="file_@item.ID" href="#" onclick="msg();">
+                                                                        <img src="@Url.Content("~/images/pdf-icon.png")" alt="@item.TITLE" title="@item.TITLE" class="mx-auto">
+                                                                        </a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                        <a  href="@Url.Action("Viewpdf", "dealer", new { id = item.ID })">
+                                                                            <img src="@Url.Content("~/images/pdf-icon.png")" alt="@item.TITLE" title="@item.TITLE" onclick="fn_usagedata(@item.ID,@item.SID)" class="mx-auto">
+                                                                        </a>
+                                                                        }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                        if (!item.ISSUBSCRIBED)
+                                                                        {
+
+                                                                        <a id="file_@item.ID" href="#" onclick="msg();">
+                                                                            <img src="@Url.Content("~/images/video-icon.png")" alt="@item.TITLE"  title="@item.TITLE" class="mx-auto">
+                                                                        </a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                        <a href="@Url.Action("ViewVideo", "dealer", new { id = item.ID })">
+                                                                            <img src="@Url.Content("~/images/video-icon.png")" alt="@item.TITLE"  title="@item.TITLE" class="mx-auto">
+                                                                        </a>
+                                                                        }
+                                                            }
+
+                                                        </div>
+                                                        <h5 class="card-title card-language-title mb-2 pb-1">@filetitle</h5>
+                                                        @if (!item.ISSUBSCRIBED)
+                                                        {
+                                                            <button type="button" id="btnpub_@item.ID" onclick="fn_publish(@item.ID,@item.SID)" class="btn btn-primary btn-block">Subscribe</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="button" id="btnpub_@item.ID" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0"><img src=@Url.Content("~/images/subscribe-icon.png") alt="" title="" class="mr-2">Subscribed</button>
+                                                        }
+                                                        <input type="hidden" name="hiddealer" id="hiddealer" value="@Convert.ToString(Session["DealerCode"])" />
+                                                        <input type="hidden" name="hidusedby" id="hidusedby" value="@Convert.ToString(Session["Usedby"])" />
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-3 mb-4">File not found.</div>
+                                        }
+
+                                    </div>
+@if (Model != null && Model.Count() > 0)
+{
+                                    <div class="paginationBoxRight">
+                                        @Html.PagedListPager(Model, Page_No => Url.Action("Modeldetails",
+      new { Page_No, Sorting_Order = ViewBag.CurrentSortOrder, Filter_Value = ViewBag.Filter, langugeid = ViewBag.langugeid, Search_Data = ViewBag.Search, status = ViewBag.status }))
+                                    </div>
+}
+                                </div>
+                              
+                            </div>
+                    </div>
+                  
+
+                </div>
+
+
+
+@*@{SMAS.Models.List.FileUploadModel obj = new SMAS.Models.List.FileUploadModel();}
+@Html.Partial("_fileupload", obj);*@
+
+
+
+
+                @section Scripts{
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <script src="~/js/bootstrap.bundle.min.js"></script>
+                    <script src="~/JS/custom.js"></script>
+                    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+<script>
+
+
+
+    var domain = $('#domainname').val();
+    var imagepath = '@Url.Content("~/images/subscribe-icon.png")';
+
+
+    function fn_usagedata(idv,filetypev)
+    {
+        
+        var objmodel = {};
+        objmodel.FID = idv;
+        objmodel.DEALERCODE = $('#hiddealer').val();
+        objmodel.SID=1;
+        objmodel.USEDBY = $('#hidusedby').val();
+        objmodel.DEVICENAME = "Web";
+
+        if (objmodel.DEALERCODE != null) {
+            $.ajax({
+                url: domain + '/api/List/SubscribeSaveFinalData/',
+                data: JSON.stringify(objmodel),
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    if (data.code == "200") {
+
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+            });
+        }
+        
+    }
+   
+
+    function fn_publish(id,filetype)
+    {
+       
+        var objmodel = {};
+        objmodel.FID = id;
+        objmodel.DEALERCODE = $('#hiddealer').val();
+        objmodel.SID = filetype;
+        objmodel.USEDBY = $('#hidusedby').val();
+
+        if (objmodel.DEALERCODE != null) {
+            $.ajax({
+                url: domain + '/api/List/SubscribeSaveData/',
+                data: JSON.stringify(objmodel),
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    if (data.code == "200") {
+                        $("#btnpub_" + id).removeClass("btn-primary btn-block");
+                        $("#btnpub_" + id).addClass("btn-white btn-light d-flex align-items-center mx-auto bg-white border-0");
+                        $("#btnpub_" + id).html('<img src=' + imagepath + ' alt="" title="" class="mr-2">Subscribed');
+                        $("#btnpub_" + id).removeAttr("onclick");
+                        if (filetype == 1)
+                        {
+                            $("#file_" + id).attr("href", domain + "dealer/Viewpdf/" + id);
+                        }
+                        else {
+                            $("#file_" + id).attr("href", domain + "dealer/ViewVideo/" + id);
+                        }
+                       
+                        $("#file_" + id).removeAttr("onclick");
+                        
+
+                    }
+                    else {
+                        alert("Data not Subscribe due to some server error.");
+                    }
+
+                }
+            });
+        }
+        else {
+            alert("Data not Subscribe due to some server error.");
+        }
+    }
+
+    function msg()
+    {
+        alert('Please subscribe the file.')
+    }
+
+        $(function () {
+            $('.pagination >li a').click(function () {
+                if ($(this).attr("href") == undefined)
+                {
+                    return false;
+                }
+                $(this).attr("href", $(this).attr("href") + '&' + $("#addStoreRegisterForm").serialize())
+            });
+        }
+       )
+
+        function AdditionalsChanged() {
+            $("#addStoreRegisterForm").submit();
+        }
+</script>
+                }
+
+
+
+
+
+
+

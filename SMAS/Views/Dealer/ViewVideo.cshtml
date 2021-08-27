@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ViewVideo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="rightPanel">
+    <div class="container-fluid p-0">
+        <div class="carManualTop file-button">
+            <a class="backBtn" href="#" onclick="goBack()">X</a>
+        </div>
+        <div class="rightSecMain">
+            <video width="100%" id="vid" controls="" controlsList="nodownload" autoplay="autoplay" name="media"><source src="@Url.Content(ViewBag.videopath)" type="video/mp4"></video>
+            @*<iframe width="100%" height="750" src="@Url.Content(ViewBag.videopath)#toolbar=0" controls controlsList="nodownload" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+function goBack() {
+  window.history.back();
+}
+
+$(document).ready(function () {
+    $("#vid").on("contextmenu", function (e) {
+        return false;
+    });
+});
+
+    </script>
+
+}

@@ -1,0 +1,85 @@
+﻿@model SMAS.Models.List.FileUpload
+
+@{
+	ViewBag.Title = "Create Employee";
+}
+
+<h3>Create Employee</h3>
+
+
+@using (@Html.BeginForm("FileUpload", "admin", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.ROSTATUS, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownListFor(model => model.ROSTATUS, ViewData["rostatus"] as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.ROSTATUS, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.Label("Model", htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownList("MID", (IEnumerable<SelectListItem>)ViewBag.Modellist, "Select Model", new { id = "MID", @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.MID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.Label("Services Type", htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownList("SID", (IEnumerable<SelectListItem>)ViewBag.Servicemanuals, "Select Services Type", new { id = "SID", @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.SID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.Label("Select Versions", htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownList("FID", (IEnumerable<SelectListItem>)ViewBag.Fversionlist, "Select Versions", new { id = "FID", @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.FID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.Label("Language", htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownList("LID", (IEnumerable<SelectListItem>)ViewBag.Languagelist, "Select Language", new { id = "LID", @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.LID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.Label("Upload File", htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			<input type="file" name="file_Uploader" required />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-2"> &nbsp; Payment Status</label>
+		<div class="col-md-10">
+			Payble
+			@Html.RadioButtonFor(model => model.PSTATUS, "Payble", new { @checked = "checked" })
+			Free
+			@Html.RadioButtonFor(model => model.PSTATUS, "Free")
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" value="Create" class="btn btn-default" />
+		</div>
+	</div>
+</div>
+}
+
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

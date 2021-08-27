@@ -1,0 +1,117 @@
+﻿@model SMAS.Models.List.FileUploadModel
+@using (@Html.BeginForm("uploadfiledata", "Common", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
+{
+  
+<div class="uploadReplaceTabMain">
+    <div class="rightSlideCrossBtn"><a href="#"><img src=@Url.Content("~/images/popup-cross.png")></a></div>
+    <div class="uploadReplaceTab">
+        <h2>Upload/Replace File</h2>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="running-tab" data-toggle="tab" href="#running" role="tab" aria-controls="running" aria-selected="true" onclick="fn_modelrunningdata();">Running</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="obsolete-tab" data-toggle="tab" href="#obsolete" role="tab" aria-controls="obsolete" aria-selected="false" onclick="fn_modelobsoletedata();">Obsolete</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="running" role="tabpanel" aria-labelledby="running-tab">
+                <div class="upRepContentMain isactivediv">
+                        <div class="upRepFormRow">
+                            <div class="upRepFormLeft" id="runningmodel" >
+                                @Html.DropDownList("MID", (IEnumerable<SelectListItem>)ViewBag.Modellist, "Select Model", new { id = "MID", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="upRepFormRight">
+                                <input type="text" id="FID" name="FID" placeholder="File Version">
+                            </div>
+                        </div>
+                        <div class="upRepFormRow">
+                            <div class="upRepFormLeft">
+                                @Html.DropDownList("LID", (IEnumerable<SelectListItem>)ViewBag.Languagelist, "Select Language", new { id = "LID", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="upRepFormRight">
+                                @Html.DropDownList("SID", (IEnumerable<SelectListItem>)ViewBag.Servicemanuals, "Select Services Type", new { id = "SID", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="browseFile">
+                            
+                           
+                           
+                          
+                            <span class="infile">
+                                @Html.TextBoxFor(model => model.PostedFile, new { type = "file" })
+                              
+                            </span>
+                           
+                            <p>Browse your file here</p>
+                            <p><span id="PostedFile-error" style="display:none;" class="text-danger">Only pdf,video(.mp4) files allowed.</span></p>
+                            <p>@Html.ValidationMessageFor(model => model.PostedFile, "", new { @class = "text-danger" })</p>
+</div>
+                   
+                        <div class="radioButtonMain">
+                            <label class="radioButtonBx">
+                                Payble
+                                @Html.RadioButtonFor(model => model.PSTATUS, "Payble", new { @checked = "checked" })
+                            </label>
+                            <label class="radioButtonBx">
+                                Free
+                                @Html.RadioButtonFor(model => model.PSTATUS, "Free")
+                            </label>
+                            @Html.Hidden("ROSTATUS", "Y");
+                        </div>
+                  
+                        <input class="upRepSumitBtn" type="submit" value="upload">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="obsolete" role="tabpanel" aria-labelledby="obsolete-tab">
+               
+               @* <div class="upRepContentMain">
+
+
+    <div class="upRepFormRow">
+           <div class="upRepFormLeft">
+               @Html.DropDownList("MID", (IEnumerable<SelectListItem>)ViewBag.Modellist, "Select Model", new { id = "MID", @class = "form-control" })
+               @Html.ValidationMessageFor(model => model.MID, "", new { @class = "text-danger" })
+           </div>
+           <div class="upRepFormRight">
+               <input type="text" id="FID" name="FID" placeholder="File Version">
+           </div>
+       </div>
+       <div class="upRepFormRow">
+           <div class="upRepFormLeft">
+               @Html.DropDownList("LID", (IEnumerable<SelectListItem>)ViewBag.Languagelist, "Select Language", new { id = "LID", @class = "form-control" })
+               @Html.ValidationMessageFor(model => model.LID, "", new { @class = "text-danger" })
+           </div>
+           <div class="upRepFormRight">
+               @Html.DropDownList("SID", (IEnumerable<SelectListItem>)ViewBag.Servicemanuals, "Select Services Type", new { id = "SID", @class = "form-control" })
+               @Html.ValidationMessageFor(model => model.SID, "", new { @class = "text-danger" })
+           </div>
+       </div>
+       <div class="browseFile">
+           <span><input type="file" name="file_Uploader"></span>
+           <p>Browse your file here</p>
+       </div>
+       <div class="radioButtonMain">
+           <label class="radioButtonBx">
+               Free
+               @Html.RadioButtonFor(model => model.PSTATUS, "Free", new { @checked = "checked" })
+           </label>
+           <label class="radioButtonBx">
+               Payable
+              @Html.RadioButtonFor(model => model.PSTATUS, "Payble")
+           </label>
+           @Html.Hidden("ROSTATUS", "obsolete");
+       </div>
+       <input class="upRepSumitBtn" type="submit" value="upload">
+
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+    
+}

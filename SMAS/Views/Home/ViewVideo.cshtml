@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "ViewVideo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="rightPanel">
+    <div class="container-fluid p-0">
+        <div class="rightSecMain">
+            <iframe width="100%" height="750" src="@Url.Content(ViewBag.videopath)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            @*<iframe width="100%" height="750" src="https://www.youtube.com/embed/rVsaKys2tmM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>*@
+        </div>
+    </div>
+</div>

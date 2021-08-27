@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Viewpdf";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    var fileurl: '@Url.Content(ViewBag.filepath)';
+
+</script>
+
+<div class="rightPanel">
+    <div class="container-fluid p-0">
+        <div class="carManualTop file-button">
+           
+            <input type="hidden" id="filepath" name="filepath" value="@Url.Content(ViewBag.filepath)" />
+        </div>
+        <div class="rightSecMain">
+            <div class="mb-4 d-block bg-white p-3 d-flex justify-content-between">
+                <h5 class="h6">@ViewBag.pdfname</h5>
+                <a class="backBtn" href="#" onclick="goBack()">X</a>
+            </div>
+
+            <iframe src="@Url.Content("~/pdf/webg/web/viewer.html?param1="+Url.Content(ViewBag.filepath)+"")#toolbar=0" id="myframe" style="width:100%; height:1000px;" frameborder="0" fp="@Url.Content(ViewBag.filepath)"></iframe>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+

@@ -1,0 +1,366 @@
+﻿
+@model PagedList.IPagedList<SMAS.Models.List.FileUpload>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />  
+
+@{
+    ViewBag.Title = "Modeldetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="rightPanel">
+
+    <div class="rightSecMain">
+        <!-- right top header start -->
+        @if (Request.IsAuthenticated)
+        {
+
+            <div class="rightHeadSec">
+                <div class="pageTitle">Home / Language / <a href="#">Alto 800 Manuals </a></div>
+                <div class="pageTitleRight">
+                    @*<a href="#" id="profileLink">*@
+                        <label>@HttpContext.Current.User.Identity.Name</label>
+                    @*</a>
+                    <div id="profileLinkDrop" class="profileLinks">
+                        <ul>
+                            <li>
+                                @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                                }
+                            </li>
+                        </ul>
+                    </div>*@
+                </div>
+            </div>
+
+        }
+
+                                @*<div class="rightHeadSec">
+                                    <div class="pageTitle">Home / Language / <a href="#">Alto 800 Manuals </a></div>
+                                    <div class="pageTitleRight">
+                                        <a href="#" id="profileLink">
+                                            <label>T. S. Narendran</label>
+                                            <span><img src="/images/admin-img.png"></span>
+                                        </a>
+                                        <div id="profileLinkDrop" class="profileLinks">
+                                            <ul>
+                                                <li><a href="#">Link1</a></li>
+                                                <li><a href="#">Link2</a></li>
+                                                <li><a href="#">Link3</a></li>
+                                                <li><a href="#">Link4</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <!-- right top header end -->
+                            <div class="d-flex justify-content-center">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#pdf">PDF</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#dtsp">DTSP</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row no-gutters justify-content-end">
+                                <div class="col-md-auto pr-2">
+                                    <div class="d-flex align-items-center btn actionUpLink"><img src="/images/upload-icon.png" alt="" title="" class="mr-2"> <span>Upload</span></div>
+                                </div>
+                                <div class="col-md-auto pr-2">
+                                    <div class="carSelectBox">
+                                        <select class="form-control">
+                                            <option>Language</option>
+                                            <option>Language2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-auto pl-2">
+                                    <div class="carManaualSearch"><input type="text" name="search" placeholder="Search" class="bg-white"></div>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="pdf">
+                                    <div class="row mt-5 no-gutters gutters-26">
+                                        @if (Model != null)
+                                        {
+                                        foreach (var item in Model)
+                                        {
+
+                                            <div class="col-md-3 mb-4">
+                                                <div class="card card-manual border-0 h-100">
+                                                    <div class="card-body text-center">
+                                                        <div class="card-language-img mb-4">
+                                                            
+                                                                <img src="@Url.Content("~/images/pdf-icon.png")" alt="" title="" class="mx-auto">
+                                                                
+                                                          </div>
+                                                        <h5 class="card-title card-language-title mb-2 pb-1">@item.TITLE</h5>
+                                                        <button type="button" class="btn btn-primary btn-block">Publish</button>
+                                                        <a href="javascript:void(0)" class="btn position-absolute btn-delete" data-target=".warningDeletePopup" data-toggle="modal"><img src="/images/action-delete.png" alt="" title=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        }
+
+
+                                        @*<div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-primary btn-block">Subscribe</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <div class="card card-manual border-0 h-100">
+                                                <div class="card-body text-center">
+                                                    <div class="card-language-img mb-4">
+                                                        <img src="/images/pdf-icon.png" alt="" title="" class="mx-auto">
+                                                    </div>
+                                                    <h5 class="card-title card-language-title mb-2 pb-1">99500M53M00-74B- Alto</h5>
+                                                    <button type="button" class="btn btn-white btn-light d-flex align-items-center mx-auto bg-white border-0">
+                                                        <img src="/images/subscribe-icon.png" alt="" title="" class="mr-2">Subscribe
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                    <div class="paginationBoxRight">
+                                        @Html.PagedListPager(Model, Page_No => Url.Action("Modeldetails",
+                        new { Page_No, Sorting_Order = ViewBag.CurrentSortOrder, Filter_Value = ViewBag.langugeid, langugeid = ViewBag.langugeid }))
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="dtsp">
+                                  
+                                </div>
+                            </div>
+                    </div>
+                    @{SMAS.Models.List.FileUploadModel obj = new SMAS.Models.List.FileUploadModel();}
+                    @Html.Partial("_fileupload", obj);
+
+                </div>
+
+                @*<div class="rightPanel">
+                    <div class="container-fluid p-0">
+                        <div class="rightSecMain">
+                           @if (Request.IsAuthenticated)
+                           {
+
+                            <div class="rightHeadSec">
+                                <div class="pageTitle">Home / <a href="#">Alto Manuals</a></div>
+                                <div class="pageTitleRight">
+                                    <a href="#" id="profileLink">
+                                        <label>@HttpContext.Current.User.Identity.Name</label>
+                                        <span><img src=@Url.Content("~//images/admin-img.png")></span>
+                                    </a>
+                                    <div id="profileLinkDrop" class="profileLinks">
+                                        <ul>
+                                            <li>
+                                                @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                                {
+                                                    <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                                                }
+                                            </li>
+                                            @*<li><a href="#">Link2</a></li>
+                                                <li><a href="#">Link3</a></li>
+                                                <li><a href="#">Link4</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                           }
+
+                            <div class="carManaualMain">
+                                <div class="carManualTop">
+                                    <a class="backBtn" href="#"><img src=@Url.Content("~//images/back-btn.png")></a>
+                                    <h2> Alto 800 Manuals</h2>
+                                    <div class="carManaualSearchMain">
+                                        <div class="carSelectBox">
+                                         @using (Html.BeginForm())
+                                         {
+                                            <p style="text-align:right">
+                                                Search Name: @Html.TextBox("langugeid", ViewBag.langugeid as string)
+                                                <input type="submit" value="Find" />
+                                            </p>
+                                         }
+
+
+
+                                        </div>
+
+                                    </div>
+                                </div>*@
+
+
+
+
+
+                @*<div class="carManualTabSec">
+                                        <div class="tableSecInn">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr class="carManualHead">
+                                                        <td width="16%">Model</td>
+                                                        <td width="28%">Title</td>
+                                                        <td width="16%"><span><img src=@Url.Content("~//images/language-icon.png")></span> Language</td>
+                                                        <td width="20%">Service Manual</td>
+                                                        <td width="20%">Action</td>
+                                                    </tr>
+
+
+                    @foreach (var item in Model)
+                    {
+
+                        <tr class="carManualContent">
+                            <td>@Html.DisplayFor(modelItem => item.MID)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FID)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LID)</td>
+                            <td><a class="createVarialLink" href="#"><img src=@Url.Content("~//images/pdf-new.png")></a></td>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="actionContent">
+                                    <tbody>
+                                        <tr>
+                                            <td width="30"><a href="#" data-toggle="modal" data-target=".warningDeletePopup"><img src=@Url.Content("~//images/action-delete.png")></a></td>
+                                            <td width="30"><a class="actionUpLink" href="#"><img src=@Url.Content("~//images/action-up.png")></a></td>
+                                            <td width="100"><a class="publishBtn" href="#">PUBLISH</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="paginationBoxRight">
+
+                                    @Html.PagedListPager(Model, Page_No => Url.Action("Modeldetails",
+                        new { Page_No, Sorting_Order = ViewBag.CurrentSortOrder, Filter_Value = ViewBag.langugeid, langugeid= ViewBag.langugeid }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+
+
+                <div class="warningDeletePopupMain">
+                    <div class="modal fade warningDeletePopup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="popupCloseBtn close" data-dismiss="modal" aria-label="Close"><img src=@Url.Content("~//images/popup-cross.png")></div>
+                                <h2><img src=@Url.Content("~//images/warning.png")> Warning</h2>
+                                <div class="warningPopupContent">
+                                    <p>Are you sure you want to delete this file?</p>
+                                    <div class="yesNoLink"><a href="#">YES</a><a href="#">NO</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                @section Scripts{
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <script src="~/js/bootstrap.bundle.min.js"></script>
+                    <script src="~/JS/Admin/admin.js"></script>
+                    <script src="~/JS/custom.js"></script>
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
+
+
+
+
+
+
+

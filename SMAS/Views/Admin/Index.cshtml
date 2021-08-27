@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Home";
+ 
+}
+
+
+ 
+        <div class="rightPanel">
+
+            <div class="rightSecMain">
+
+    @if (Request.IsAuthenticated)
+    {
+
+
+        <div class="rightHeadSec">
+            <div class="pageTitle">Home / <a href="#">Languages</a></div>
+            <div class="pageTitleRight">
+                @*<a href="#" id="profileLink">*@
+                <label>
+                    @HttpContext.Current.User.Identity.Name
+
+            </label>
+
+            @* </a>
+                <div id="profileLinkDrop" class="profileLinks">
+                    <ul>
+                        <li>
+                            @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                            }
+                        </li>
+                    </ul>
+                </div>*@
+        </div>
+    </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Convert.ToString(Url.RequestContext.RouteData.Values["id"])))
+    {
+        if (Convert.ToString(Url.RequestContext.RouteData.Values["id"]) == "200")
+        {
+            <div class="alert alert-success" role="alert">
+                File Uploaded Successfully
+            </div>
+        }
+        else if (Convert.ToString(Url.RequestContext.RouteData.Values["id"]) == "204")
+        {
+            <div class="alert alert-danger" role="alert">
+                File not uploaded due to lost internet connection.
+        </div>
+        }
+        else
+        {
+                    <div class="alert alert-danger" role="alert">
+                        File not uploaded due to some error
+                    </div>
+    }
+}
+               
+               
+
+                <div class="row mt-5 pt-5 no-gutters gutters-26">
+       @if(ViewBag.Languagelist!=null)
+       {
+foreach (var item in ViewBag.Languagelist)
+{
+
+    var imagepath = Url.Content("~/images/" + item.Text + ".png");
+
+    <div class="col-md-3 mb-4">
+        <a href="@Url.Action("ModelList", "admin", new { id = item.Value })" class="card card-language border-0 h-100">
+            <div class="card-body text-center">
+                <div class="card-language-img">
+                    <img src='@imagepath' alt="" title="" class="mx-auto">
+                </div>
+                <h5 class="card-title mb-0">@item.Text</h5>
+            </div>
+        </a>
+    </div>
+
+
+
+}
+       }
+
+
+                   
+
+                </div>
+            </div>
+
+
+        </div>
+
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/custom.js"></script>
+   
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+        $(document).ready(function () {
+                setTimeout(function () {
+                    $('.alert').hide()
+                }, 7000);
+           
+        });
+
+</script>
+
+
+    }
+

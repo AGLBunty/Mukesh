@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "ViewVideo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="rightPanel">
+    <div class="container-fluid p-0">
+        <div class="carManualTop file-button">
+            <a class="backBtn" href="#" onclick="goBack()">X</a>
+        </div>
+        <div class="rightSecMain">
+            <iframe width="100%" height="750" src="@Url.Content(ViewBag.videopath)#toolbar=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+

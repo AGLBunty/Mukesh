@@ -1,0 +1,130 @@
+﻿@model PagedList.IPagedList<SMAS.Models.Employee>
+@using PagedList.Mvc;  
+<link href="~/Content/PagedList.css" rel="stylesheet" />  
+@{
+    ViewBag.Title = "Employee List";
+    var list = new SelectList(new[]
+{
+         new { ID = "", Name = "Select" },
+    new { ID = "1", Name = "name1" },
+    new { ID = "2", Name = "name2" },
+    new { ID = "3", Name = "name3" },
+},
+"ID", "Name", 1);
+
+    ViewData["list"] = list;
+}
+
+<h3>Employee List</h3>
+
+<p>
+    @Html.ActionLink("New Employee", "Create")
+</p>
+
+@*@using (Html.BeginForm("Index"))
+{
+
+    <p style="text-align:right">
+
+        @Html.DropDownList("list",ViewData["list"] as SelectList, new { onchange = "this.form.onsubmit()" })
+
+        Search Name: @Html.TextBox("Search_Data", ViewBag.FilterValue as string)
+        <input type="submit" value="Find" />
+    </p>
+}*@
+
+@using (Ajax.BeginForm("Index", "Employees", new AjaxOptions { HttpMethod = "POST", OnSuccess = "successOfAddition", OnFailure = "failureOfAddition" }, new { id = "addStoreRegisterForm" }))
+{
+    <p style="text-align:right">
+        @Html.DropDownList("Search_Data", ViewData["list"] as SelectList, new
+   {
+       @class = "chzn-select",
+       onchange = "$(this.form).submit();",
+       //onchange = "AdditionalsChanged(this)",
+       style = "width: 300px"
+   })
+    </p>
+}
+
+
+
+<table class="table" style="width:400px; float:right;">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @*@Html.DisplayNameFor(model => model.Name)*@
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Company
+        </th>
+        <th>
+            Designation
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new { id = item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<div style="text-align:right">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, Page_No => Url.Action("Index",
+    new { Page_No, Sorting_Order = ViewBag.CurrentSortOrder, Filter_Value = ViewBag.FilterValue }))
+
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.pagination >li a').click(function () {
+                if ($(this).attr("href") == undefined)
+                {
+                    return false;
+                }
+                $(this).attr("href", $(this).attr("href") + '&' + $("form").serialize())
+            });
+        }
+       )
+
+        //function AdditionalsChanged() {
+        //    $("#addStoreRegisterForm").submit();
+        //}
+    </script>
+
+}
+<div class="paging_pages" style="text-align:right">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) in @Model.PageCount
+    @{
+        string url = "Employees?firstload=true&Page_No={0}";
+        @Html.PagedListPager(Model, Page_No => string.Format(url, Page_No))
+    }
+</div>

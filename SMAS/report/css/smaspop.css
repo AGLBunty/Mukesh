@@ -1,0 +1,110 @@
+body{font-family: 'Roboto'; overflow-x: hidden;}
+*{box-sizing: border-box;}
+ul,li{ list-style-type: none; padding: 0; margin:0; }
+input,a,button, select{outline: none !important; box-shadow: none !important; text-decoration: none;}
+
+
+/*--- Pop up -----*/
+.reportPopup{position: fixed; height: 100%; width:100%; left:0;top:0; background: rgba(0,0,0,0.5); display: none;}
+.reportPopup .reportPopupSec{position:  absolute; top:50%; left: 50%; transform: translate(-50%,-50%); padding: 60px 40px 30px;
+max-width: 510px;background: #fff; width: 100%; border-radius: 15px; }
+.reportPopup .reportPopupSec .close{position: absolute; top:20px;opacity: 1; right: 20px; cursor: pointer;}
+.reportPopup .reportPopupSec .form-group{position: relative; margin-bottom: 10px;}
+.reportPopup .reportPopupSec .form-control{ border-radius: 6px;border: solid 1px #a9b0be;height:50px;
+ font-size: 18px; font-weight: 400;color: #6c6c6c; width: 100%; background: #f7f8fb; padding: 0 15px; padding:0 40px 0 15px}
+.reportPopup .reportPopupSec .form-group label{font-size: 18px; font-weight: 400;color: #6c6c6c;}
+.reportPopup .reportPopupSec .form-group select{background:#f7f8fb url('../img/dropdown.png') no-repeat; background-position: 95% center;
+-webkit-appearance: none;-moz-appearance: none;appearance: none; }
+.select2-container{width: 100% !important}
+.select2-container--default .select2-selection--single{border-radius: 6px;border: solid 1px #a9b0be;height:50px;
+	background: #f7f8fb; outline: none;}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+line-height: 50px;
+padding: 0 40px 0 15px;
+font-size: 18px;
+font-weight: 400;
+color: #6c6c6c;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{background:url('../img/dropdown.png') no-repeat;    height: 9px;
+    position: absolute;top: 50%;width: 16px;transform: translateY(-50%);right: 5%;}
+.select2-container--default .select2-selection--single .select2-selection__arrow b{display: none;} 
+
+.reportPopup .reportPopupSec .date-froup{display: flex; justify-content: space-between;}  
+.reportPopup .reportPopupSec .date-froup .form-control{ width: 48%; } 
+
+.reportPopup .reportPopupSec .download-report{text-align: center;}
+.reportPopup .reportPopupSec button{width: 216px;border-radius:8px;background: #003c8e;font-size: 16px; color: #fff;
+ font-weight: 700; border: 1px solid #003c8e;text-transform: uppercase;text-align: center; height: 50px; line-height: 48px;
+margin: 25px auto 0; transition: .5s;}
+.reportPopup .reportPopupSec button:hover{background: #fff; color: #003c8e;}
+
+.reportPopup .reportPopupSec .form-control::-webkit-input-placeholder { /* Edge */
+   opacity: 0.5 !important }
+
+.reportPopup .reportPopupSec .form-control:-ms-input-placeholder { /* Internet Explorer */
+  opacity: 0.5 !important
+}
+
+.reportPopup .reportPopupSec .form-control::placeholder {
+  opacity: 0.5 !important
+}
+
+.error2 {display:none;color:red;}
+
+
+@media only screen and (max-width: 767px){
+	.container{max-width: 100%; width: 100%;}
+}
+
+@media only screen and (max-width: 480px){
+	.reportPopup .reportPopupSec{ width: calc(100% - 20px);}
+	.reportPopup .reportPopupSec{padding: 45px 10px 10px;}
+	.reportPopup .reportPopupSec .close{ top:10px; right: 10px; }
+	.reportPopup .reportPopupSec button{margin: 10PX 0 0;}
+
+}
+
+
+
+
+
+
+.reportPopup2{position: fixed; height: 100%; width:100%; left:0;top:0; background: rgba(0,0,0,0.5); display: none;}
+.reportPopup2 .reportPopupSec2{position:  absolute; top:50%; left: 50%; transform: translate(-50%,-50%); padding: 60px 40px 30px;
+max-width: 510px;background: #fff; width: 100%; border-radius: 15px; }
+.reportPopup2 .reportPopupSec2 .close{position: absolute; top:20px;opacity: 1; right: 20px; cursor: pointer;}
+.reportPopup2 .reportPopupSec2 .form-group{position: relative; margin-bottom: 10px;}
+.reportPopup2 .reportPopupSec2 .form-control{ border-radius: 6px;border: solid 1px #a9b0be;height:50px;
+ font-size: 18px; font-weight: 400;color: #6c6c6c; width: 100%; background: #f7f8fb; padding: 0 15px; padding:0 40px 0 15px}
+.reportPopup2 .reportPopupSec2 .form-group label{font-size: 18px; font-weight: 400;color: #6c6c6c;}
+.reportPopup2 .reportPopupSec2 .form-group select{background:#f7f8fb url('../img/dropdown.png') no-repeat; background-position: 95% center;
+-webkit-appearance: none;-moz-appearance: none;appearance: none; }
+
+.reportPopup2 .reportPopupSec2 .date-froup{display: flex; justify-content: space-between;}  
+.reportPopup2 .reportPopupSec2 .date-froup .form-control{ width: 48%; } 
+
+.reportPopup2 .reportPopupSec2 .download-report{text-align: center;}
+.reportPopup2 .reportPopupSec2 button{width: 216px;border-radius:8px;background: #003c8e;font-size: 16px; color: #fff;
+ font-weight: 700; border: 1px solid #003c8e;text-transform: uppercase;text-align: center; height: 50px; line-height: 48px;
+margin: 25px auto 0; transition: .5s;}
+.reportPopup2 .reportPopupSec2 button:hover{background: #fff; color: #003c8e;}
+
+.reportPopup2 .reportPopupSec2 .form-control::-webkit-input-placeholder { /* Edge */
+   opacity: 0.5 !important }
+
+.reportPopup2 .reportPopupSec2 .form-control:-ms-input-placeholder { /* Internet Explorer */
+  opacity: 0.5 !important
+}
+
+.reportPopup2 .reportPopupSec2 .form-control::placeholder {
+  opacity: 0.5 !important
+}
+
+@media only screen and (max-width: 480px){
+	.reportPopup2 .reportPopupSec2{ width: calc(100% - 20px);}
+	.reportPopup2 .reportPopupSec2{padding: 45px 10px 10px;}
+	.reportPopup2 .reportPopupSec2 .close{ top:10px; right: 10px; }
+	.reportPopup2 .reportPopupSec2 button{margin: 10PX 0 0;}
+
+}
+

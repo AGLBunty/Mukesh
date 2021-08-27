@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Viewpdf";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="rightPanel">
+    <div class="container-fluid p-0">
+        <div class="rightSecMain">
+            @*<iframe src=@Url.Content("~/images/smas.pdf") style="width:100%; height:1000px;" frameborder="0"></iframe>*@
+            <iframe src="@Url.Content(ViewBag.filepath)" style="width:100%; height:1000px;" frameborder="0"></iframe>
+        
+        </div>
+    </div>
+</div>

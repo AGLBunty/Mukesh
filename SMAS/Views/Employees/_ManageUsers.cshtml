@@ -1,0 +1,104 @@
+﻿
+
+@model  IEnumerable<SMAS.Models.Employee>            
+
+@*@using KMUK.Orion.ServiceProxy.OrionReturnsService*@
+@{
+    var cssclassstatus = "";
+    string StrUserId = "", StrUserFullName = "", StrUserName = "", strUserEmailAddress;
+    Int64 intRecordCount = 0, intTotalRecordCount = 0;
+    bool BitUserIsActive = false;
+
+
+<div class="tblwrapper-ot">
+    <div id="divManageUserlistPage" style="padding:5px 0px 0px 0px; width:400px; display:block" class="pagination fr">
+        @{
+            SMAS.Models.clsBLLPagingClass opaging = new SMAS.Models.clsBLLPagingClass();
+            opaging.PagingFunctionName = "UserPage( ";
+            opaging.PageSize =  ViewBag.PageSize;
+            opaging.CurrentPage = Convert.ToInt32(ViewBag.PageNo);
+            opaging.TotalRecords =Convert.ToInt32(ViewBag.TotalRecord);
+            @Html.Raw(opaging.GeneratePaging().ToString());
+            @Html.Hidden("PageNo", opaging.CurrentPage)
+        }
+      
+    </div>
+   
+    <div class="width40 fl lbl-block">
+        <h4>Total Records Count : <span id="totalrecordscount"></span></h4>
+    </div>
+    <div class="cl"></div>
+              <div class="tblwrapper">
+                <table class="table">
+                  <thead>
+                    <tr> 
+                      <th><span class="center-text"><a class="asc clsImgSortUpDownArrowShowHide" style="cursor:pointer;" onclick="javascript:return sortdata_UserDetailsList('UserFullName')" id="sortLink_UserDetailsList_UserFullName" title="User Full Name">Full Name<span id="sortexprUserFullName"></span></a></span></th>                 	
+                      <th><span class="center-text"><a class="asc clsImgSortUpDownArrowShowHide" style="cursor:pointer;" onclick="javascript:return sortdata_UserDetailsList('UserName')" id="sortLink_UserDetailsList_UserName" title="User Name">User Name<span id="sortexprUserName"> </span></a></span></th>                 	
+                      <th><span class="center-text"><a class="asc clsImgSortUpDownArrowShowHide" style="cursor:pointer;" onclick="javascript:return sortdata_UserDetailsList('UserEmailId')" id="sortLink_UserDetailsList_UserEmailId" title="Email Address">Email ID<span id="sortexprUserEmailId"> </span></a></span></th>                 	
+                      <th class="center-txt">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      @if (Model!=null)
+                      {
+                          foreach (var Item in Model)
+                          {
+                              intRecordCount++;
+                              StrUserId = ""; StrUserFullName = ""; StrUserName = ""; strUserEmailAddress = "";  BitUserIsActive = false;
+
+                              if (intTotalRecordCount == 0)
+                              {
+                                  intTotalRecordCount = 10;//getting total records of count
+                              }
+
+                              StrUserId = Convert.ToString(Item.Id);
+                              StrUserFullName = Item.Company;
+                              StrUserName = Item.Name;
+                              //strUserEmailAddress = Item.UserEmailId;
+                              //BitUserIsActive = Item.UserIsActive;
+
+
+                              //if (Item.UserIsActive == true)
+                              //{ cssclassstatus = "active-icon"; }
+                              //else if (Item.UserIsActive == false)
+                              //{ cssclassstatus = "inactive-icon"; }
+
+                    <tr>
+                      <td>@StrUserFullName</td>
+                      <td>@StrUserName</td>
+                      <td title="Send Mail">
+                            <a href="mailto:@strUserEmailAddress">@strUserEmailAddress</a>
+                      </td>
+                      
+                      <td class="actionbtn center-txt nowrap">
+                      	<a onclick="javascript:void(0);" href="@Url.Action("EditUser", "ManageUsers", new { UserId = @StrUserId })" title="Edit"><i class="edit-icon"></i>Edit</a>
+                       <a href="javascript:void(0);" onclick="fn_MasterChangeStatus('@StrUserId','@Convert.ToString(BitUserIsActive)',this);"><i class="@cssclassstatus"></i></a>
+                     </td>
+                    </tr>
+                     }
+                  }
+                 @if (intRecordCount == 0)
+                 {
+               <tr><td colspan="19" align="center"><div class="noRecordFound tc">No record found</div></td></tr>                   
+                       <script type="text/javascript">
+                           $("#divPagesizeDropDown").hide();
+                           $("#lnkbtnEODProcess").hide();
+                        </script>
+                 }
+                 else
+                 { 
+                        <script type="text/javascript">
+                            $("#divPagesizeDropDown").show();
+                            $("#lnkbtnEODProcess").show();
+                        </script>
+                 }
+   
+
+                   
+                  </tbody>
+                </table>
+
+              </div> <!--end tblwrapper-->
+            </div>
+  
+}

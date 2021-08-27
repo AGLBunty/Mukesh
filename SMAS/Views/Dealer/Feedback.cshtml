@@ -1,0 +1,86 @@
+﻿@model SMAS.Models.List.Feedbacks
+
+@{
+    ViewBag.Title = "Feedbacks";
+}
+
+<h3>Feedbacks</h3>
+
+
+<div class="rightPanel">
+
+    <div class="rightSecMain">
+        <!-- right top header start -->
+        @if (Request.IsAuthenticated)
+        {
+            <div class="rightHeadSec">
+                <div class="pageTitle">Home / Language / <a href="#">Feedback</a></div>
+                <div class="pageTitleRight">
+                
+                    <label>@HttpContext.Current.User.Identity.Name</label>
+                    <div><input type="hidden" id="domainname" name="domainname" value="@SMAS.Models.clsBLLHttpUtility.GetDomin()" /></div>
+                </div>
+            </div>
+
+        }
+
+        @if (ViewBag.message == "200")
+        {
+        <div class="alert alert-success" role="alert">
+            Feedback submitted  Successfully.
+        </div>
+        }
+        else if (ViewBag.message == "202")
+        {
+        <div class="alert alert-danger" role="alert">
+            Feedback not submitted due to some error.
+        </div>
+        }
+
+        <!-- right top header end -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <div class="card border-0">
+                    <div class="card-body p-5">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                        @Html.TextAreaFor(model => model.FEEDBACK,  new { @class = "form-control", @rows = "12", @cols = "20", @placeholder = "Your Feedback" })
+                                        @Html.ValidationMessageFor(model => model.FEEDBACK, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary px-4">Submit</button>
+                                </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+        $(document).ready(function () {
+                setTimeout(function () {
+                    $('.alert').hide()
+                }, 7000);
+
+        });
+
+</script>
+}
+
+
